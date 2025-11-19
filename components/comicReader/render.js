@@ -280,18 +280,10 @@ const renderCoverNavigation = (deviceType, styles, {
   getNextEpisodeForPages
 }) => {
   const isMobile = deviceType === 'mobile';
-  const isTablet = deviceType === 'tablet';
-  const isDesktop = deviceType === 'desktop';
-  
-  // Only show on desktop and tablet (mobile has its own controls)
-  if (isMobile) {
-    return null;
-  }
-  
   const buttons = [];
   
-  // When pages are open, navigate between pages
-  if (!showCover && previousPage && nextPage) {
+  // When pages are open, navigate between pages (desktop/tablet only)
+  if (!isMobile && !showCover && previousPage && nextPage) {
     // Left button for previous page
     buttons.push(React.createElement('button', {
       key: 'page-prev',
@@ -334,11 +326,11 @@ const renderCoverNavigation = (deviceType, styles, {
     return buttons;
   }
   
-  // When on cover, navigate between episodes
+  // When on cover, navigate between episodes (all devices)
   const hasPreviousEpisode = getPreviousEpisode ? getPreviousEpisode() : null;
   const hasNextEpisode = getNextEpisode ? getNextEpisode() : null;
   
-  if (!hasPreviousEpisode && !hasNextEpisode) {
+  if (!showCover || (!hasPreviousEpisode && !hasNextEpisode)) {
     return null;
   }
   
