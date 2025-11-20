@@ -357,33 +357,28 @@ window.Footer = ({ handleTimelineClick, selectedId, setSelectedId, selectedTag, 
                       title: 'Comic book available'
                     }
                   ),
-                  React.createElement(
-                    'div',
-                    { className: 'timeline-card' },
-                    !moment.isComic && moment.fullLink !== '#' && React.createElement(
-                      'span',
-                      { className: 'full-moment-indicator', title: 'Full blog post available' },
-                      '📖'
-                    ),
                     React.createElement(
                       'div',
-                      { className: 'timeline-highlight' },
-                      moment.timelineHighlight || moment.title
-                    ),
-                    React.createElement(
-                      'div',
-                      { 
-                        className: 'timeline-date-combined',
-                        title: fullDateRange
-                      },
-                      moment.stayDuration >= 365 ? '' : combinedDate,
-                      React.createElement(
+                      { className: 'timeline-card' },
+                      !moment.isComic && moment.fullLink !== '#' && React.createElement(
                         'span',
-                        { className: 'timeline-duration' },
-                        moment.stayDuration >= 365 ? moment.formattedDuration : ` · ${moment.formattedDuration}`
+                        { className: 'full-moment-indicator', title: 'Full blog post available' },
+                        '📖'
+                      ),
+                      React.createElement(
+                        'div',
+                        { className: 'timeline-highlight' },
+                        moment.timelineHighlight || moment.title
+                      ),
+                      React.createElement(
+                        'div',
+                        { 
+                          className: 'timeline-date-combined',
+                          title: fullDateRange
+                        },
+                        moment.stayDuration >= 365 ? '' : combinedDate
                       )
                     )
-                  )
                 );
               })
             ];

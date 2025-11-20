@@ -233,12 +233,6 @@ body.comic-is-open footer {
     margin-top: 4px; /* Add space from the title */
 }
 
-.timeline-duration {
-    color: var(--text-muted);
-    opacity: 0.75;
-    text-align: center;
-}
-
 .timeline-highlight {
     font-size: 1.25rem;
     font-weight: 700;
