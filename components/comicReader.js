@@ -44,6 +44,7 @@ window.ComicReader = ({ content, onClose }) => {
   const splideContainerRef = React.useRef(null); // Ref for Splide container element
   const currentPageRef = React.useRef(1);
   const overlayRef = React.useRef(null);
+  const mobilePageHistoryActiveRef = React.useRef(false);
   
   // Use device detection hook
   const deviceType = window.ComicReaderDeviceDetection?.useDeviceType 
@@ -622,46 +623,101 @@ window.ComicReader = ({ content, onClose }) => {
   }, [episodeData, isMobile]); // Add isMobile dependency
   
 
-  // Update body class when comic is open/closed to hide footer
-  React.useEffect(() => {
-    if (!showCover) {
-      document.body.classList.add('comic-is-open');
-    } else {
-      document.body.classList.remove('comic-is-open');
-    }
-    return () => {
-      document.body.classList.remove('comic-is-open');
+    // Update body class when comic is open/closed to hide footer
+    React.useEffect(() => {
+      if (!showCover) {
+        document.body.classList.add('comic-is-open');
+      } else {
+        document.body.classList.remove('comic-is-open');
+      }
+      return () => {
+        document.body.classList.remove('comic-is-open');
+      };
+    }, [showCover]);
+  
+    // Keep mobile history flag in sync whenever the cover is visible
+    React.useEffect(() => {
+      if (showCover) {
+        mobilePageHistoryActiveRef.current = false;
+      }
+    }, [showCover]);
+  
+    const pushMobileHistoryState = React.useCallback(() => {
+      if (!isMobile) {
+        return;
+      }
+      if (typeof window === 'undefined' || !window.history) {
+        return;
+      }
+      if (mobilePageHistoryActiveRef.current) {
+        return;
+      }
+      const currentState = window.history.state || {};
+      const newState = { ...currentState, comicReaderView: 'comic-pages' };
+      window.history.pushState(newState, '', window.location.href);
+      mobilePageHistoryActiveRef.current = true;
+    }, [isMobile]);
+  
+    const goBackToCoverInternal = React.useCallback(() => {
+      setShowCover(true);
+      setFlipbookReady(false);
+      setIsLoading(false);
+      setCurrentPage(1);
+      currentPageRef.current = 1;
+      flipbookCreatedRef.current = false; // Reset flipbook creation flag
+      mobilePageHistoryActiveRef.current = false;
+      updateGlobalState({ 
+        showCover: true, 
+        flipbookReady: false, 
+        isLoading: false, 
+        currentPage: 1,
+        flipbookCreated: false // Reset global flipbook creation flag
+      });
+    }, [updateGlobalState]);
+  
+    const goBackToCover = React.useCallback(() => {
+      if (isMobile && mobilePageHistoryActiveRef.current && typeof window !== 'undefined') {
+        window.history.back();
+        return;
+      }
+      goBackToCoverInternal();
+    }, [isMobile, goBackToCoverInternal]);
+  
+    React.useEffect(() => {
+      if (!isMobile || typeof window === 'undefined') {
+        return;
+      }
+      const handleMobilePopState = (event) => {
+        if (!mobilePageHistoryActiveRef.current) {
+          return;
+        }
+        mobilePageHistoryActiveRef.current = false;
+        if (event?.stopImmediatePropagation) {
+          event.stopImmediatePropagation();
+        } else if (event?.stopPropagation) {
+          event.stopPropagation();
+        }
+        event?.preventDefault?.();
+        goBackToCoverInternal();
+      };
+      window.addEventListener('popstate', handleMobilePopState, true);
+      return () => {
+        window.removeEventListener('popstate', handleMobilePopState, true);
+      };
+    }, [isMobile, goBackToCoverInternal]);
+  
+    // Function to transition from cover to flipbook
+    const openComicBook = () => {
+      setShowCover(false);
+      setIsLoading(true);
+      pushMobileHistoryState();
+      
+      // Show loading immediately, then create flipbook
+      setTimeout(() => {
+        // Set flipbook ready to trigger the flipbook creation
+        setFlipbookReady(true);
+      }, 50); // Minimal delay to ensure loading state is visible
     };
-  }, [showCover]);
-
-  // Function to transition from cover to flipbook
-  const openComicBook = () => {
-    setShowCover(false);
-    setIsLoading(true);
-    
-    // Show loading immediately, then create flipbook
-    setTimeout(() => {
-      // Set flipbook ready to trigger the flipbook creation
-      setFlipbookReady(true);
-    }, 50); // Minimal delay to ensure loading state is visible
-  };
-
-  // Function to go back to cover from first page
-  const goBackToCover = () => {
-    setShowCover(true);
-    setFlipbookReady(false);
-    setIsLoading(false);
-    setCurrentPage(1);
-    currentPageRef.current = 1;
-    flipbookCreatedRef.current = false; // Reset flipbook creation flag
-    updateGlobalState({ 
-      showCover: true, 
-      flipbookReady: false, 
-      isLoading: false, 
-      currentPage: 1,
-      flipbookCreated: false // Reset global flipbook creation flag
-    });
-  };
 
 
 
