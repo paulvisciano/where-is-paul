@@ -63,6 +63,21 @@ window.characters = [
     relationship: "Lifelong friend who helped shape Paul's adult years."
   },
   {
+    id: "boy",
+    name: "Boy",
+    nickname: "Boy",
+    role: "Leo’s Brother / The Outgoing One",
+    description: "High-energy, flirtatious, always-smiling social magnet with big personality and bigger heart.",
+    bio: "Boy is Leo’s brother — a charismatic, fun-loving force of nature who lights up every city he steps into. You first met him during your trip to Davao, then again in Bangkok, and now you’re hanging out again on this return visit. He’s the type who instantly makes a night more fun: a natural womanizer, effortlessly social, and always in a good mood. Despite the jokes and wild energy, he’s loyal, genuine, and brings a warm, brotherly vibe to every adventure. Whether you’re grabbing food, hitting clubs, or getting caught in the rain after golf, Boy’s energy makes everything better.",
+    avatar: "/characters/Boy.png",
+    pageImage: "/characters/Boy.png",
+    imageAlt: "Boy — Leo’s brother, charismatic and outgoing",
+    origin: "Davao, Philippines",
+    currentHome: "Valencia, Davao City",
+    tags: ["friend", "leo’s-brother", "philippines", "outgoing", "fun", "womanizer"],
+    relationship: "Brother of Leo, recurring character in the Philippines and Bangkok arcs. A fun, high-energy companion who adds chaos, laughter, and unforgettable nights out."
+  },
+  {
     id: "mo",
     name: "Mo",
     role: "Close Friend / Brother",
