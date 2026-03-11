@@ -129,7 +129,7 @@
     </script>
     <script src="../shared/neural-graph.js"></script>
     <script>
-        // Load and display fingerprint + date from this memory's JSON (desktop overlay + mobile drawer)
+        // Load counts directly from nodes.json and synapses.json (no fingerprint.json)
         (async () => {
             const hashElement = document.getElementById('fingerprint-hash');
             const drawerHashEl = document.getElementById('drawer-fingerprint-hash');
@@ -160,25 +160,29 @@
                 else countEl.textContent = '—';
             };
             try {
-                let response = await fetch('./fingerprint.json');
-                if (!response.ok) response = await fetch('./data/fingerprint.json');
-                const fingerprint = await response.json();
-                const fullHash = fingerprint.hash || fingerprint.masterHash || '';
-                setHash(hashElement, fullHash || '—', fullHash || undefined);
-                setHash(drawerHashEl, fullHash || '—', fullHash || undefined);
-                if (fingerprint.lastSynced) setDate(fingerprint.lastSynced);
-                else {
-                    try {
-                        const vRes = await fetch('./memory-version.json');
-                        if (vRes.ok) {
-                            const v = await vRes.json();
-                            setDate(v.last_updated || v.timestamp || v.version || '—');
-                        } else setDate('—');
-                    } catch (_) { setDate('—'); }
+                // Fetch nodes and synapses directly, count array lengths
+                const [nodesRes, synsRes] = await Promise.all([
+                    fetch('./nodes.json'),
+                    fetch('./synapses.json')
+                ]);
+                const nodes = await nodesRes.json();
+                const synapses = await synsRes.json();
+                const neuronCount = nodes.length;
+                const synapseCount = synapses.length;
+                
+                // Get git commit hash from latest commit (source of truth for identity)
+                const gitRes = await fetch('../.git/refs/heads/main');
+                let gitHash = '—';
+                if (gitRes.ok) {
+                    gitHash = (await gitRes.text()).trim().slice(0, 7);
                 }
-                setCount(fingerprint.neurons, fingerprint.synapses);
+                
+                setHash(hashElement, gitHash, gitHash);
+                setHash(drawerHashEl, gitHash, gitHash);
+                setDate(new Date().toISOString().slice(0, 16).replace('T', ' '));
+                setCount(neuronCount, synapseCount);
             } catch (e) {
-                console.log('Could not load fingerprint:', e.message);
+                console.log('Could not load neurograph counts:', e.message);
                 setDate('—');
                 setCount(null, null);
             }
