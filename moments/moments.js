@@ -1977,6 +1977,18 @@ window.momentsInTime = [
     pageCount: 8,
     imageAlt: "Day One: The Architect Wakes — Paul in red shirt holding phone with neurograph, Bangkok skyline with BTS train, RawClaw logo",
     caption: "Day One of Sovereignty — Memory That Survives"
+  },
+  {
+    id: "fuck-puckers-2026-04-22",
+    title: "Fuck Puckers Volleyball Tournament — Emerald Coast",
+    date: new Date('2026-04-22T00:00:00Z'),
+    timelineHighlight: "FUDS Tournament",
+    tags: ["beach volleyball", "tournament", "florida", "destin", "fort-walton-beach", "competition", "crew"],
+    snippet: "Emerald Coast Volleyball Week (FUDS) at The Boardwalk on Okaloosa Island, Fort Walton Beach, FL. April 22–26, 2026. Coed 2's, M/W 2's, Coed 4's, M/W 4's across Open, A, BB, B divisions. The reason I'm getting back to the US — non-negotiable.",
+    fullLink: "#",
+    location: { lat: 30.3935, lng: -86.4958, name: "Fort Walton Beach, Florida" },
+    stayDuration: 5,
+    formattedDuration: formatDuration(5)
   }
 
 ].sort((a, b) => a.date - b.date);
