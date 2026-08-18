@@ -658,6 +658,18 @@ window.GlobeComponent = ({ handleTimelineClick, selectedId, setSelectedId, selec
     }
   }, [selectedTag, selectedYear, setSelectedId]);
 
+  const useTravelLogComicLayout = (post) => {
+    if (!post || !post.location || typeof post.location.lat !== 'number' || typeof post.location.lng !== 'number') {
+      return false;
+    }
+    if (post.isComic || post.isInteractive) return false;
+    if (post.travelLogComicLayout === false) return false;
+    if (post.travelLogComicLayout === true) return true;
+    const title = post.title || '';
+    if (title.includes('Urban Runner')) return false;
+    return true;
+  };
+
   const handleOpenBlogPost = async (postId, options = {}) => {
     const post = window.momentsInTime.find(p => p.id === postId);
 
@@ -808,6 +820,8 @@ window.GlobeComponent = ({ handleTimelineClick, selectedId, setSelectedId, selec
           caption: post.caption,
           mapLink: post.mapLink,
           mapText: post.mapText,
+          location: post.location,
+          travelLogComicLayout: useTravelLogComicLayout(post),
           isInteractive: isInteractiveEpisode(postId, post.title),
           isComic: isComicEpisode(postId, post.title)
         });
@@ -855,7 +869,9 @@ window.GlobeComponent = ({ handleTimelineClick, selectedId, setSelectedId, selec
           imageAlt: post.imageAlt,
           caption: post.caption,
           mapLink: post.mapLink,
-          mapText: post.mapText
+          mapText: post.mapText,
+          location: post.location,
+          travelLogComicLayout: useTravelLogComicLayout(post)
         });
         // Only open drawer if it's not already open
         if (!isBlogDrawerOpen) {

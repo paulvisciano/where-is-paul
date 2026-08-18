@@ -1,11 +1,66 @@
+window.buildOpenStreetMapEmbedUrl = (lat, lng, deltaDeg) => {
+  const d = deltaDeg == null ? 0.06 : deltaDeg;
+  const bbox = `${lng - d},${lat - d},${lng + d},${lat + d}`;
+  return `https://www.openstreetmap.org/export/embed.html?bbox=${encodeURIComponent(bbox)}&layer=mapnik&marker=${encodeURIComponent(`${lat},${lng}`)}`;
+};
+
 window.BlogPostDrawer = ({ content, onClose }) => {
   // If there's an image, we want to remove the title from the content since it's already shown in the title bar
   const processedContent = content && content.image ? {
     ...content,
     content: content.content.replace(/<h2>[^<]*<\/h2>/, '') // Remove the first h2 tag which is typically the title
   } : content;
-  
-  // BlogPostDrawer is only used for regular episodes, so always apply the wrapper
+
+  const travelComic = processedContent && processedContent.travelLogComicLayout === true;
+  const loc = processedContent && processedContent.location;
+  const hasMapCoords = loc && typeof loc.lat === 'number' && typeof loc.lng === 'number';
+  const mapEmbedUrl = travelComic && hasMapCoords ? window.buildOpenStreetMapEmbedUrl(loc.lat, loc.lng) : null;
+
+  const bodyBlock = processedContent && React.createElement('div', {
+    key: 'content',
+    className: travelComic ? 'blog-post-body travel-log-comic__body' : 'blog-post-body',
+    dangerouslySetInnerHTML: { __html: processedContent.content }
+  });
+
+  const mapPanel = mapEmbedUrl && React.createElement(
+    'div',
+    { key: 'map-panel', className: 'travel-log-comic__map-panel' },
+    React.createElement('div', { className: 'travel-log-comic__map-ribbon' }, 'LOCATOR MAP'),
+    React.createElement('div', { className: 'travel-log-comic__map-frame' },
+      React.createElement('iframe', {
+        title: loc.name ? `Map: ${loc.name}` : 'OpenStreetMap location',
+        className: 'travel-log-comic__map-iframe',
+        src: mapEmbedUrl,
+        loading: 'lazy',
+        referrerPolicy: 'no-referrer-when-downgrade',
+        allowFullScreen: true
+      })
+    ),
+    loc.name && React.createElement('p', { className: 'travel-log-comic__map-caption' }, loc.name)
+  );
+
+  const storySection = travelComic
+    ? React.createElement(
+      'div',
+      { key: 'travel-comic-wrap', className: 'travel-log-comic' },
+      mapPanel,
+      React.createElement('div', { className: 'travel-log-comic__story-panels' },
+        React.createElement('div', { className: 'travel-log-comic__story-ribbon' }, 'TRAVEL LOG'),
+        bodyBlock
+      ),
+      processedContent.mapLink && React.createElement(
+        'a',
+        {
+          key: 'map',
+          href: processedContent.mapLink,
+          target: '_blank',
+          rel: 'noopener noreferrer',
+          className: 'map-link travel-log-comic__external-map'
+        },
+        processedContent.mapText || 'Open full map'
+      )
+    )
+    : bodyBlock;
 
   return React.createElement(
     React.Fragment,
@@ -20,7 +75,7 @@ window.BlogPostDrawer = ({ content, onClose }) => {
     React.createElement(
       'div',
       {
-        className: `blog-post-drawer ${content ? 'open' : ''}`,
+        className: `blog-post-drawer ${content ? 'open' : ''}${travelComic ? ' blog-post-drawer--travel-comic' : ''}`,
         ref: window.blogDrawerRef
       },
       React.createElement(
@@ -55,23 +110,18 @@ window.BlogPostDrawer = ({ content, onClose }) => {
         window.isLoading && React.createElement('p', null, 'Loading...'),
         window.error && React.createElement('p', { style: { color: 'red' } }, window.error),
         processedContent && [
-          React.createElement('div', {
-            key: 'content',
-            className: 'blog-post-body',
-            dangerouslySetInnerHTML: { __html: processedContent.content }
-          }),
-          // Add Urban Runner episode navigation if this is an Urban Runner episode
+          storySection,
           processedContent.title && processedContent.title.includes('Urban Runner') && React.createElement('div', {
             key: 'episode-nav',
             id: 'episode-navigation-container',
             style: { marginTop: '2rem' }
           }),
-          processedContent.mapLink && React.createElement(
+          !travelComic && processedContent.mapLink && React.createElement(
             'a',
-            { 
+            {
               key: 'map',
-              href: processedContent.mapLink, 
-              target: '_blank', 
+              href: processedContent.mapLink,
+              target: '_blank',
               rel: 'noopener noreferrer',
               className: 'map-link'
             },
