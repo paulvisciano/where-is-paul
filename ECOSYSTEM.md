@@ -1,130 +1,75 @@
 # Paul Visciano's Unified Ecosystem 🌍
 
 ## Overview
-A unified space-time canvas where travel experiences, world-changing projects, and global impact converge on an interactive 3D globe.
-
-## Vision
-Transform the world through:
-- **Travel & Connection**: Exploring cultures and building relationships
-- **Wealth Redistribution**: Urban Runner's global impact
-- **Music Revolution**: Musical Cubes' cultural transformation
-- **AI Memory**: Learning and improving across all projects
+A unified Sci-Fi Labs workspace centered on **Where is Paul?** — a spatial life map that renders a life as geography and time on an interactive 3D globe.
 
 ## Ecosystem Structure
 
 ```
-paulvisciano.github.io/              # 🏠 Main unified ecosystem
-├── moments/                          # 🗺️ Travel experiences (globe pins)
-├── projects/                         # 🚀 All world-changing projects
-│   ├── musical-cubes/               # 🎵 Music revolution (established)
-│   ├── urban-runner/                # 🏃‍♂️ Wealth redistribution + AR
-│   └── project-template/            # 📋 Standardized structure
-├── .ai/                              # 🤖 AI-assisted development
-│   ├── memories/                     # 🧠 AI memory system
-│   │   ├── contexts/                 # Context knowledge
-│   │   ├── relationships/            # People & places tracking
-│   │   └── sessions/                 # Session history
-│   └── test-cases/                   # 🧪 Test documentation & automation
-│       ├── test-comic-reader.js      # Automated comic reader tests
-│       └── browser-automation-tests.js # Manual test definitions
-├── components/                       # 🧩 Shared components
-├── scripts/                          # 🔧 Utility scripts
+paulvisciano.github.io/              # Where is Paul? — spatial life map
+├── index.html                        # Entry point / 3D globe shell
+├── moments/                          # Travel experiences (globe pins + stories)
+├── characters/                       # The people who shaped the journey
+├── components/                       # Shared UI components
+├── lib/                              # Core libraries and helpers
+├── assets/                           # Static assets (images, audio, posters)
+├── icons/                            # Icon set
+├── hooks/                            # Git hooks (pre-push, etc.)
+├── scripts/                          # Utility scripts
 │   ├── create-moment-folders.js      # Generate moment folder structure
-│   └── update-moment-index-files.js  # Update moment redirects
-└── globe/                            # 🌍 Interactive 3D visualization
+│   ├── update-moment-index-files.js  # Update moment redirects
+│   ├── parse-openclaw-session.js     # Session parsing helper
+│   ├── setup-hooks.sh                # Install git hooks into .git/hooks
+│   └── process-whatsapp-transcripts.sh  # Parse chat exports by day
+├── mcp-r2-upload/                    # Cloudflare R2 upload tooling
+└── .ai/                              # AI-assisted development context
 ```
 
-## How It All Connects
+## What Lives Here
 
-### **Travel Website** 🌍
-- **Purpose**: Document your journey through space and time
-- **Globe Pins**: Every location, experience, and connection
-- **Integration**: All projects can create pins on this globe
+### **Where is Paul?** 🌍
+The public-facing spatial life map. A 3D globe and timeline built for the web and mobile first, ready to extend into XR.
 
-### **Urban Runner** 🏃‍♂️
-- **Purpose**: Global wealth redistribution through running
-- **Globe Pins**: Running routes, donation locations, AR sessions
-- **Connection**: Every run contributes to global change
+- **Globe Pins** — every location, experience, and connection from the journey
+- **Timeline** — years and moments, navigable
+- **Mixed story formats** — blog posts, swipeable cards, videos, AI-generated comic sequences
+- **Virtual ↔ Real bridge** — QR codes on comic pages open the real-world locations they depict
+- **The people** — short videos of everyone who shaped the journey, in their own voice
 
-### **Musical Cubes** 🎵
-- **Purpose**: Revolutionize music creation and distribution
-- **Globe Pins**: New tracks, collaborations, cultural events
-- **Connection**: Music connects cultures and creates global impact
+## What Moved On
 
-## Globe Integration
+The ecosystem has been consolidated. Projects that previously lived as subfolders here now have their own homes:
 
-The 3D globe serves as a **unified visualization** of:
-- **Where you've been** (travel moments)
-- **What you've created** (project outputs)
-- **How you've impacted the world** (change metrics)
-- **Connections between everything** (cross-project insights)
+| Used to be here | Now |
+|---|---|
+| `projects/musical-cubes/` | **[Musical Cubes](https://musical-cubes.vercel.app)** — standalone |
+| `projects/urban-runner/` | Removed; has its own direction |
+| `projects/project-template/` | Removed |
+| `neuro-graph/` | **[paulvisciano/neuro-graph](https://github.com/paulvisciano/neuro-graph)** — dedicated repo |
+| `latest/` landing page | Removed (stale placeholders) |
+| Private journal / raw transcripts | Removed from public repo |
 
-## AI Memory System
+## Related Work
 
-A **centralized learning system** located in `.ai/memories/` that:
-- **Tracks development** across all projects
-- **Learns patterns** from your work and travel
-- **Provides context** for future AI assistance
-- **Shares insights** between projects
-- **Stores relationships** with people and places
-- **Maintains session history** for continuous learning
+Part of **[Sci-Fi Labs](https://github.com/paulvisciano)** — spatial apps for web, mobile, and XR.
 
-## Testing Infrastructure
-
-Comprehensive test suite in `.ai/test-cases/` that includes:
-- **Manual test cases** for core site functionality
-- **Automated tests** for comic reader functionality
-- **Browser automation** tests using Puppeteer
-- **Test documentation** and validation procedures
-
-## Impact Tracking
-
-### **Wealth Redistribution**
-- Track donations and impact through Urban Runner
-- Visualize global inequality reduction on the globe
-
-### **Cultural Exchange**
-- Monitor music distribution and cultural connections
-- Track cross-cultural collaborations and events
-
-### **Global Learning**
-- AI memory learns from all projects
-- Patterns emerge across travel, running, and music
-- Continuous improvement and optimization
+| Project | What it is |
+|---|---|
+| **[Where is Paul?](https://paulvisciano.github.io/)** | This repo. Spatial life map on a 3D globe. |
+| **[Knowledge Graph](https://github.com/paulvisciano/neuro-graph)** | Neurograph visualization, public learnings, sovereign-memory architecture. |
+| **[Musical Cubes](https://musical-cubes.vercel.app)** | Music revolution. |
+| **[paulvisciano.vercel.app](https://paulvisciano.vercel.app/)** | About Paul & other work. |
 
 ## Development Workflow
 
-1. **Work on projects** (Urban Runner, Musical Cubes)
-2. **Create globe pins** for significant activities
-3. **Update AI memory** in `.ai/memories/` with learnings and decisions
-4. **Run tests** using `.ai/test-cases/` to validate functionality
-5. **Commit and push** to main repo
-6. **AI learns** from all changes and provides better assistance
-
-## Future Projects
-
-The ecosystem is designed to **scale infinitely**:
-- **Project Template**: Standardized structure for new projects
-- **Globe Integration**: Every project can create pins
-- **AI Memory**: All projects contribute to collective learning
-- **Impact Tracking**: Measure how each project changes the world
-
-## Getting Started
-
-1. **Explore existing projects** in the `projects/` directory
-2. **Understand globe integration** for each project
-3. **Review test cases** in `.ai/test-cases/` to understand functionality
-4. **Contribute to AI memory** system in `.ai/memories/`
-5. **Create new projects** using the template
-6. **Connect everything** through the unified globe
-7. **Run tests** to validate changes: `npm run test:comic`
+1. **Create moments** for significant places and experiences
+2. **Add characters** for the people who shaped the journey
+3. **Generate comic sequences** from real photographs
+4. **Run utility scripts** in `scripts/` to manage moment folders and redirects
+5. **Commit and push** — GitHub Pages deploys the live site
 
 ## The Big Picture
 
-This isn't just a website or a collection of projects. It's a **living ecosystem** that:
-- **Visualizes your impact** on the world
-- **Connects all your passions** into a unified vision
-- **Learns and improves** over time
-- **Inspires others** to create similar change
+This isn't just a website. It's a **living record** of adventure, travel, and self-challenge — a visible trail left to inspire the future generation.
 
-**Every pin on the globe represents not just where you've been, but what you've created and how you've impacted the world.** 🌍✨
+**Every pin on the globe represents a place, a story, and a moment in a life deliberately lived.** 🌍✨
