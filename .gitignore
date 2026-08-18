@@ -71,3 +71,6 @@ user-*/
 *.zip
 *.rar
 .env
+
+# Opencode runtime artifacts
+.sisyphus/
