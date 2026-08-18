@@ -72,9 +72,10 @@ This repo is part of **[Sci-Fi Labs](https://github.com/paulvisciano)** — spat
 
 | Project | What it is |
 |---|---|
-| **[Where is Paul?](https://paulvisciano.github.io/)** | This repo. Spatial life map on a 3D globe. |
-| **[Knowledge Graph](https://github.com/paulvisciano/neuro-graph)** | The sovereign-memory empire: neurograph visualization, public learnings, thumb-drive architecture. |
-| **[Musical Cubes](https://musical-cubes.vercel.app)** | Music revolution, standalone. |
+| **[Where is Paul?](https://paulvisciano.github.io/)** | This repo. Spatial life map on a 3D globe. The experience layer. |
+| **[Neuro Graph](https://github.com/paulvisciano/neuro-graph)** | Public memory network — the first attempt to map memory as connected nodes. Evolved from this repo. |
+| **[Knowledge Graph](https://github.com/paulvisciano/knowledge-graph)** | Evolution of Neuro Graph — local LLM, voice, vision, LightRAG. Private, on-device. |
+| **[Musical Cubes](https://musical-cubes.vercel.app)** | 3D cube instruments — spatial music production. |
 | **[paulvisciano.vercel.app](https://paulvisciano.vercel.app/)** | About Paul & other work. |
 
 ---
