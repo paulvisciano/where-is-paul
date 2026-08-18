@@ -5,24 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Redirecting...</title>
   <script>
-    // Use the current path to build a canonical link
-    const currentPath = window.location.pathname.endsWith('/') ? window.location.pathname : window.location.pathname + '/';
+    const KNOWN_PREFIXES = ["/apps/where-is-paul"];
+    const rawPath = window.location.pathname || "/";
+    const pathWithSlash = rawPath.charAt(rawPath.length - 1) === "/" ? rawPath : rawPath + "/";
+    let base = "";
+    for (const prefix of KNOWN_PREFIXES) {
+      const prefixWithSlash = prefix.charAt(prefix.length - 1) === "/" ? prefix : prefix + "/";
+      if (pathWithSlash === prefixWithSlash || pathWithSlash.indexOf(prefixWithSlash) === 0 || rawPath === prefix) {
+        base = prefix;
+        break;
+      }
+    }
+    const currentPath = rawPath.endsWith('/') ? rawPath : rawPath + '/';
     const canonicalLink = document.createElement('link');
     canonicalLink.rel = 'canonical';
     canonicalLink.href = currentPath;
     document.head.appendChild(canonicalLink);
 
-    // Redirect to the main app and let it open the Character Bible
-    const redirectUrl = `/?path=/characters${window.location.hash}`;
+    const redirectUrl = `${base}/?path=/characters${window.location.hash}`;
     window.location.replace(redirectUrl);
   </script>
   <noscript>
-    <meta http-equiv="refresh" content="0; url=/" />
+    <meta http-equiv="refresh" content="0; url=../" />
   </noscript>
 </head>
 <body>
   <p>Redirecting to Character Bible…</p>
-  <p>If you are not redirected automatically, <a href="/">click here</a>.</p>
+  <p>If you are not redirected automatically, <a href="../">click here</a>.</p>
   <img src="https://pub-9466bb5132e74aeba333004ad0c21f21.r2.dev/characters/cover.png" alt="Urban Runner: Character Bible Cover" style="display:none" />
 </body>
 </html>
