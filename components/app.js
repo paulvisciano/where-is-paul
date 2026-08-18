@@ -215,11 +215,11 @@ window.App = () => {
         intendedPath = `/moments/${moment.fullLink}`;
       }
       
-      const currentPath = window.location.pathname;
+      const currentPath = window.stripBase ? window.stripBase(window.location.pathname) : window.location.pathname;
       if (currentPath !== intendedPath) {
         // For comic moments, preserve the hash; for non-comic moments, don't add hash
         const fullUrl = momentIsComic ? intendedPath + window.location.hash : intendedPath;
-        window.history.pushState({ momentId: moment.id }, '', fullUrl);
+        window.history.pushState({ momentId: moment.id }, '', window.withBase ? window.withBase(fullUrl) : fullUrl);
       }
     } else {
       updateOverlayMessage('Looking for Paul'); // Default message
@@ -300,7 +300,7 @@ window.App = () => {
     } else {
       // Drawer is closed, navigate to the new canonical URL
       const intendedPath = nextMoment.fullLink.startsWith('/') ? nextMoment.fullLink : `/moments/${nextMoment.fullLink}`;
-      window.location.href = intendedPath;
+      window.location.href = window.withBase ? window.withBase(intendedPath) : intendedPath;
     }
   };
 
@@ -336,11 +336,12 @@ window.App = () => {
   React.useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const pathFromQuery = params.get('path');
-    let path = window.location.pathname;
+    let path = window.stripBase ? window.stripBase(window.location.pathname) : window.location.pathname;
 
     if (pathFromQuery) {
       path = pathFromQuery;
-      window.history.replaceState({}, '', path + (window.location.hash || ''));
+      const rewritten = window.withBase ? window.withBase(path) : path;
+      window.history.replaceState({}, '', rewritten + (window.location.hash || ''));
     }
 
     const normalizedPath = path.endsWith('/') ? path : path + '/';
@@ -422,7 +423,7 @@ window.App = () => {
         updateOverlayMessage(`Exploring ${moment.title}`); // Set moment-specific message upfront
         handleMomentSelection(moment); // Use the unified logic to select and zoom
       } else {
-        window.history.replaceState({}, '', '/');
+        window.history.replaceState({}, '', window.withBase ? window.withBase('/') : '/');
         updateOverlayMessage('Looking for Paul');
       }
     } else {
@@ -470,7 +471,7 @@ window.App = () => {
       } else {
         setSelectedId(null); // Reset if no momentId in URL
         // Redirect to root to trigger current location logic
-        window.history.replaceState({}, '', '/');
+        window.history.replaceState({}, '', window.withBase ? window.withBase('/') : '/');
         updateOverlayMessage('Looking for Paul');
       }
     };

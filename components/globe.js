@@ -360,7 +360,7 @@ window.GlobeComponent = ({ handleTimelineClick, selectedId, setSelectedId, selec
               lat: post.lat,
               lng: post.lng,
               id: post.id,
-              image: post.image ? post.image.replace('attachment://', '') : null,
+              image: post.image ? (window.withBase ? window.withBase(post.image.replace('attachment://', '')) : post.image.replace('attachment://', '')) : null,
               imageAlt: post.imageAlt
             });
           }
@@ -521,7 +521,7 @@ window.GlobeComponent = ({ handleTimelineClick, selectedId, setSelectedId, selec
                 lat: post.lat,
                 lng: post.lng,
                 id: post.id,
-                image: post.image ? post.image.replace('attachment://', '') : null,
+                image: post.image ? (window.withBase ? window.withBase(post.image.replace('attachment://', '')) : post.image.replace('attachment://', '')) : null,
                 imageAlt: post.imageAlt
               });
             }
@@ -682,16 +682,16 @@ window.GlobeComponent = ({ handleTimelineClick, selectedId, setSelectedId, selec
       }
       if (selectedId !== postId) {
         setSelectedId(postId);
-        const currentBase = (window.location.pathname || '').replace(/\/$/, '');
+        const currentBase = (window.stripBase ? window.stripBase(window.location.pathname) : window.location.pathname || '').replace(/\/$/, '');
         const intendedBase = (intendedPath || '').replace(/#.*$/, '').replace(/\/$/, '');
         // Push when navigating to a different base path, or when setting/updating slide hash for character comic
         if (currentBase !== intendedBase || options.initialSlide) {
-          window.history.pushState({ momentId: postId }, '', intendedPath);
+          window.history.pushState({ momentId: postId }, '', window.withBase ? window.withBase(intendedPath) : intendedPath);
         }
         // Globe zoom will be handled automatically by React state change
       } else if (options.initialSlide) {
         // Already on this moment; still push URL with slide hash so ComicReader opens to correct slide
-        window.history.pushState({ momentId: postId }, '', intendedPath);
+        window.history.pushState({ momentId: postId }, '', window.withBase ? window.withBase(intendedPath) : intendedPath);
       }
       
       setIsLoading(true);
@@ -746,7 +746,7 @@ window.GlobeComponent = ({ handleTimelineClick, selectedId, setSelectedId, selec
           htmlFile += `${separator}t=${Date.now()}`;
         }
         
-        const response = await fetch(htmlFile);
+        const response = await fetch(window.withBase ? window.withBase(htmlFile) : htmlFile);
 
         if (!response.ok) {
           throw new Error('Failed to load post content');
@@ -761,7 +761,8 @@ window.GlobeComponent = ({ handleTimelineClick, selectedId, setSelectedId, selec
         if (isInteractiveEpisode(postId, post.title)) {
           // Use contentFile for data path, fallback to data.json
           let dataPath = post.contentFile || 'data.json';
-          
+          if (window.withBase) dataPath = window.withBase(dataPath);
+
           // Inject the data path into the HTML content
           let htmlWithDataPath = htmlContent.replace(
             /function getEpisodeDataPath\(\)\s*\{[\s\S]*?\}/,
@@ -815,7 +816,7 @@ window.GlobeComponent = ({ handleTimelineClick, selectedId, setSelectedId, selec
           postId: postId,
           title: post.title,
           content: bodyContent,
-          image: post.image ? post.image.replace('attachment://', '') : null,
+          image: post.image ? (window.withBase ? window.withBase(post.image.replace('attachment://', '')) : post.image.replace('attachment://', '')) : null,
           imageAlt: post.imageAlt,
           caption: post.caption,
           mapLink: post.mapLink,
@@ -865,7 +866,7 @@ window.GlobeComponent = ({ handleTimelineClick, selectedId, setSelectedId, selec
           postId: postId,
           title: post.title,
           content: `<p>${err.message}</p>`,
-          image: post.image ? post.image.replace('attachment://', '') : null,
+          image: post.image ? (window.withBase ? window.withBase(post.image.replace('attachment://', '')) : post.image.replace('attachment://', '')) : null,
           imageAlt: post.imageAlt,
           caption: post.caption,
           mapLink: post.mapLink,

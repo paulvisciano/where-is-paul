@@ -381,7 +381,7 @@ window.Footer = ({ handleTimelineClick, selectedId, setSelectedId, selectedTag, 
                     'img',
                     { 
                       className: 'comic-thumbnail-indicator', 
-                      src: moment.cover || `${moment.fullLink.replace(/\/$/, '')}/cover.png`,
+                      src: (function(){ var s = moment.cover || (moment.fullLink.replace(/\/$/, '') + '/cover.png'); return window.withBase ? window.withBase(s) : s; })(),
                       alt: `${moment.title} cover`,
                       title: 'Comic book available'
                     }
