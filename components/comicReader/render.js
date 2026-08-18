@@ -44,8 +44,8 @@ const renderHeaderButtons = (styles, { handleClose, toggleFullscreen, isFullscre
  */
 const resolveImageUrl = (url) => {
   if (!url || typeof url !== 'string') return url;
-  if (url.startsWith('attachment://')) return url.replace('attachment://', '');
-  return url;
+  if (url.startsWith('attachment://')) url = url.replace('attachment://', '');
+  return window.withBase ? window.withBase(url) : url;
 };
 
 /**
@@ -59,7 +59,7 @@ const renderCover = (deviceType, styles, {
   isWideCover = false
 }) => {
   const isMobile = deviceType === 'mobile';
-  const coverSrc = resolveImageUrl(episodeData?.cover || episodeData?.image) || (episodeData?.fullLink ? `${episodeData.fullLink.replace(/\/$/, '')}/cover.png` : null);
+  const coverSrc = resolveImageUrl(episodeData?.cover || episodeData?.image) || (episodeData?.fullLink ? (window.withBase ? window.withBase(`${episodeData.fullLink.replace(/\/$/, '')}/cover.png`) : `${episodeData.fullLink.replace(/\/$/, '')}/cover.png`) : null);
   
   const coverClassName = 'comic-cover-display' + (isWideCover ? ' comic-cover-display--wide' : '');
   return React.createElement('div', {

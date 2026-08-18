@@ -57,10 +57,11 @@ const updateUrlForSlide = (basePath, slideIndex, episodeData) => {
     newHash = '#page-' + (slideIndex + 1); // 1-based fallback
   }
   const newUrl = basePath.replace(/#.*$/, '') + newHash;
+  const finalUrl = window.withBase ? window.withBase(newUrl) : newUrl;
   window.history.replaceState(
     { ...(window.history.state || {}), slideIndex: slideIndex + 1 },
     '',
-    newUrl
+    finalUrl
   );
 };
 
@@ -183,7 +184,7 @@ const getPreviousEpisode = (episodeData) => {
  */
 const findCurrentEpisode = () => {
   // Check if this is the Character Bible route
-  const currentPath = window.location.pathname;
+  const currentPath = window.stripBase ? window.stripBase(window.location.pathname) : window.location.pathname;
   if ((currentPath === '/characters' || currentPath.startsWith('/characters/')) && window.currentCharacterComicBook) {
     return window.currentCharacterComicBook;
   }
@@ -242,7 +243,7 @@ const preloadNextTwoPages = (pages, fromIndex, isVideoFile) => {
     if (!url || typeof url !== 'string') return;
     if (isVideoFile && isVideoFile(url)) return;
     const img = new Image();
-    img.src = url;
+    img.src = window.withBase ? window.withBase(url) : url;
   });
 };
 
@@ -259,7 +260,7 @@ const preloadCharacterVideos = (pages, fromIndex) => {
     if (!url || typeof url !== 'string') return;
     const video = document.createElement('video');
     video.preload = 'auto';
-    video.src = url;
+    video.src = window.withBase ? window.withBase(url) : url;
     video.style.cssText = 'position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;';
     document.body.appendChild(video);
     video.load();

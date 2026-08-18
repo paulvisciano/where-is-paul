@@ -405,7 +405,7 @@ window.ComicReader = ({ content, onClose }) => {
               isVisible: true
             });
             setIsVisible(true);
-            window.history.pushState({ momentId: newEpisode.id }, '', newEpisode.fullLink);
+            window.history.pushState({ momentId: newEpisode.id }, '', window.withBase ? window.withBase(newEpisode.fullLink) : newEpisode.fullLink);
             setTimeout(() => { isSwiperUpdatingRef.current = false; }, 100);
           }
         }
@@ -453,7 +453,7 @@ window.ComicReader = ({ content, onClose }) => {
       updateGlobalState({ episodeData: effectiveEpisode });
       if (window.handleTimelineClick) window.handleTimelineClick(episodeToKeep);
       if (window.zoomCallback) window.zoomCallback(episodeToKeep);
-      if (effectiveEpisode?.fullLink) window.history.replaceState({ momentId: episodeToKeep.id }, '', effectiveEpisode.fullLink);
+      if (effectiveEpisode?.fullLink) window.history.replaceState({ momentId: episodeToKeep.id }, '', window.withBase ? window.withBase(effectiveEpisode.fullLink) : effectiveEpisode.fullLink);
     }
   }, [orientation, deviceType, showCover, getAllComicEpisodes]);
 
@@ -658,7 +658,7 @@ window.ComicReader = ({ content, onClose }) => {
     // Clear #slide-N from URL so re-opening starts at slide 1
     const basePath = (episodeData?.fullLink || '').replace(/#.*$/, '');
     if (basePath && window.location.hash) {
-      window.history.replaceState({}, '', basePath);
+      window.history.replaceState({}, '', window.withBase ? window.withBase(basePath) : basePath);
     }
   };
 
@@ -672,15 +672,17 @@ window.ComicReader = ({ content, onClose }) => {
       const { showCover: showCoverVal, episodeData: episodeDataVal, goBackToCover: goBack, handleClose: close } = backButtonStateRef.current;
       if (document.fullscreenElement) {
         window.comicConsumedBack = true;
-        const url = (episodeDataVal?.fullLink || window.location.pathname || '/') + (window.location.hash || '');
+        const _pn = window.stripBase ? window.stripBase(window.location.pathname) : window.location.pathname;
+        const url = (episodeDataVal?.fullLink || _pn || '/') + (window.location.hash || '');
         const state = episodeDataVal ? { momentId: episodeDataVal.id } : {};
-        window.history.pushState(state, '', url);
+        window.history.pushState(state, '', window.withBase ? window.withBase(url) : url);
         document.exitFullscreen().then(() => setIsFullscreen(false));
       } else if (!showCoverVal) {
         window.comicConsumedBack = true;
-        const url = (episodeDataVal?.fullLink || window.location.pathname || '/') + (window.location.hash || '');
+        const _pn = window.stripBase ? window.stripBase(window.location.pathname) : window.location.pathname;
+        const url = (episodeDataVal?.fullLink || _pn || '/') + (window.location.hash || '');
         const state = episodeDataVal ? { momentId: episodeDataVal.id } : {};
-        window.history.pushState(state, '', url);
+        window.history.pushState(state, '', window.withBase ? window.withBase(url) : url);
         if (goBack) goBack();
       } else {
         if (close) close();
@@ -947,7 +949,7 @@ window.ComicReader = ({ content, onClose }) => {
           isVisible: true
         });
         setIsVisible(true);
-        window.history.pushState({ momentId: nextEpisode.id }, '', nextEpisode.fullLink);
+        window.history.pushState({ momentId: nextEpisode.id }, '', window.withBase ? window.withBase(nextEpisode.fullLink) : nextEpisode.fullLink);
         if (window.zoomCallback) {
           window.zoomCallback(nextEpisode);
         }
@@ -981,7 +983,7 @@ window.ComicReader = ({ content, onClose }) => {
           isVisible: true
         });
         setIsVisible(true);
-        window.history.pushState({ momentId: prevEpisode.id }, '', prevEpisode.fullLink);
+        window.history.pushState({ momentId: prevEpisode.id }, '', window.withBase ? window.withBase(prevEpisode.fullLink) : prevEpisode.fullLink);
         if (window.zoomCallback) {
           window.zoomCallback(prevEpisode);
         }
@@ -996,7 +998,7 @@ window.ComicReader = ({ content, onClose }) => {
     // Clear #slide-N from URL so re-opening starts at slide 1
     const basePath = (episodeData?.fullLink || '').replace(/#.*$/, '');
     if (basePath && window.location.hash) {
-      window.history.replaceState({}, '', basePath);
+      window.history.replaceState({}, '', window.withBase ? window.withBase(basePath) : basePath);
     }
     // Reset global state when closing
     updateGlobalState({

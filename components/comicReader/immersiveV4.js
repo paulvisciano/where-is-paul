@@ -28,8 +28,8 @@
   const isVideoUrl = (url) => /\.(mp4|webm|ogg)(\?|$)/i.test(url || '');
   const isPageVideo = (page) => typeof page === 'string' ? isVideoUrl(page) : (page && page.type === 'video');
   const isPageCustom = (page) => page && typeof page === 'object' && page.type === 'custom';
-  const getPageSrc = (page) => typeof page === 'string' ? page : (page && page.src);
-  const getPagePoster = (page) => page && page.poster;
+  const getPageSrc = (page) => { const s = typeof page === 'string' ? page : (page && page.src); return s && window.withBase ? window.withBase(s) : s; };
+  const getPagePoster = (page) => { const p = page && page.poster; return p && window.withBase ? window.withBase(p) : p; };
 
   // Shared play/pause overlay style
   const VIDEO_PLAY_OVERLAY_STYLE = {

@@ -128,7 +128,7 @@ const updateMobilePages = (leftPage, pageNumber, currentPages, previousPage, nex
   pageContent.style.cssText = styleObjectToCss(styles.mobilePageContentStyle);
   
   if (pageIndex >= 0 && pageIndex < currentPages.length) {
-    const pageUrl = currentPages[pageIndex];
+    const pageUrl = window.withBase ? window.withBase(currentPages[pageIndex]) : currentPages[pageIndex];
     const mediaElement = createMediaElement(
       pageUrl,
       `Page ${pageNumber}`,
@@ -168,7 +168,7 @@ const updateDesktopPages = (leftPage, rightPage, pageNumber, currentPages, previ
   
   // Add left page (image or video)
   if (leftPageIndex >= 0 && leftPageIndex < currentPages.length) {
-    const leftPageUrl = currentPages[leftPageIndex];
+    const leftPageUrl = window.withBase ? window.withBase(currentPages[leftPageIndex]) : currentPages[leftPageIndex];
     const leftMedia = createMediaElement(
       leftPageUrl,
       `Page ${leftPageIndex + 1}`,
@@ -185,7 +185,7 @@ const updateDesktopPages = (leftPage, rightPage, pageNumber, currentPages, previ
   
   // Add right page (image or video)
   if (rightPage && rightPageIndex >= 0 && rightPageIndex < currentPages.length) {
-    const rightPageUrl = currentPages[rightPageIndex];
+    const rightPageUrl = window.withBase ? window.withBase(currentPages[rightPageIndex]) : currentPages[rightPageIndex];
     const rightMedia = createMediaElement(
       rightPageUrl,
       `Page ${rightPageIndex + 1}`,
