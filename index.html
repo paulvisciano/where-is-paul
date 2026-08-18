@@ -6,21 +6,33 @@
   <meta name="description" content="Explore my personal blog with coding tips, volleyball updates, travel adventures, coffee shops, nutrition, philosophical thoughts, and more, featuring an interactive 3D globe powered by Globe.GL! 🌍">
   <meta name="keywords" content="personal blog, coding tips, volleyball, travel, coffee shops, nutrition, philosophy, 3D interactive globe, Globe.GL, Austin, Destin, Tokyo">
   <title>Where is Paul?</title>
-  <!-- PWA Support -->
-  <link rel="manifest" href="/manifest.json">
+  <script>
+    (function () {
+      var KNOWN_PREFIXES = ["/apps/where-is-paul"];
+      var p = window.location.pathname || "/";
+      var ps = p.charAt(p.length - 1) === "/" ? p : p + "/";
+      var base = "";
+      for (var i = 0; i < KNOWN_PREFIXES.length; i++) {
+        var px = KNOWN_PREFIXES[i];
+        var pxs = px.charAt(px.length - 1) === "/" ? px : px + "/";
+        if (ps === pxs || ps.indexOf(pxs) === 0 || p === px) { base = px; break; }
+      }
+      window.BASE_PATH = base;
+      document.write('<link rel="manifest" href="' + (base ? base + "/" : "") + 'manifest.json">');
+      document.write('<link rel="icon" type="image/png" sizes="192x192" href="' + (base ? base + "/" : "") + 'icons/icon-3-192x192.png">');
+      document.write('<link rel="apple-touch-icon" sizes="152x152" href="' + (base ? base + "/" : "") + 'icons/icon-3-192x192.png">');
+      document.write('<link rel="apple-touch-icon" sizes="180x180" href="' + (base ? base + "/" : "") + 'icons/icon-3-192x192.png">');
+      document.write('<link rel="apple-touch-icon" sizes="167x167" href="' + (base ? base + "/" : "") + 'icons/icon-3-192x192.png">');
+    })();
+  </script>
   <meta name="theme-color" content="#000000">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="application-name" content="Where is Paul?">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="Where is Paul?">
-  
-  <!-- Icons for various platforms -->
-  <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-3-192x192.png">
-  <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-3-192x192.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-3-192x192.png">
-  <link rel="apple-touch-icon" sizes="167x167" href="/icons/icon-3-192x192.png">
-  
+
+  <script src="lib/basePath.js?v=20260818c"></script>
   <!-- Local Libraries -->
   <script src="lib/tailwind.min.js" crossorigin="anonymous"></script>
   <script src="lib/react.production.min.js" crossorigin="anonymous"></script>
@@ -125,22 +137,22 @@
   <script src="lib/swiper-bundle.min.js"></script>
 
   <!-- Local Scripts -->
-  <script type="text/babel" defer src="components/globe.js"></script>
+  <script type="text/babel" defer src="components/globe.js?v=20260818a"></script>
   <script type="text/babel" defer src="components/blogPostDrawer.js"></script>
   <script type="text/babel" defer src="components/interactiveEpisodeDrawer.js"></script>
   <!-- Comic Reader Components (load in order) -->
-  <script type="text/babel" defer src="components/comicReader/core.js"></script>
+  <script type="text/babel" defer src="components/comicReader/core.js?v=20260818a"></script>
   <script type="text/babel" defer src="components/comicReader/deviceDetection.js"></script>
   <script type="text/babel" defer src="components/comicReader/styles.js"></script>
-  <script type="text/babel" defer src="components/comicReader/flipbook.js"></script>
+  <script type="text/babel" defer src="components/comicReader/flipbook.js?v=20260818a"></script>
   <script type="text/babel" defer src="components/comicReader/navigation.js"></script>
-  <script type="text/babel" defer src="components/comicReader/immersiveV4.js"></script>
+  <script type="text/babel" defer src="components/comicReader/immersiveV4.js?v=20260818a"></script>
   <script type="text/babel" defer src="components/comicReader/characterSlideViewer.js"></script>
-  <script type="text/babel" defer src="components/comicReader/render.js"></script>
-  <script type="text/babel" defer src="components/comicReader.js?v=20260215b"></script>
-  <script type="text/babel" defer src="components/footer.js"></script>
-  <script type="text/babel" defer src="components/app.js?v=20251116130000"></script>
-  <script defer src="components/episodeNavigation.js"></script>
+  <script type="text/babel" defer src="components/comicReader/render.js?v=20260818a"></script>
+  <script type="text/babel" defer src="components/comicReader.js?v=20260818a"></script>
+  <script type="text/babel" defer src="components/footer.js?v=20260818a"></script>
+  <script type="text/babel" defer src="components/app.js?v=20260818a"></script>
+  <script defer src="components/episodeNavigation.js?v=20260818a"></script>
 
   <!-- Render the App -->
   <script type="text/babel" defer>

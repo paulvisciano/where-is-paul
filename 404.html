@@ -5,10 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Going to the past...</title>
   <script>
-    // Redirect to index.html with the original path as a query parameter
+    const KNOWN_PREFIXES = ["/apps/where-is-paul"];
+    function detectBasePath() {
+      const p = window.location.pathname || "/";
+      const ps = p.charAt(p.length - 1) === "/" ? p : p + "/";
+      for (const prefix of KNOWN_PREFIXES) {
+        const px = prefix.charAt(prefix.length - 1) === "/" ? prefix : prefix + "/";
+        if (ps === px || ps.indexOf(px) === 0 || p === prefix) return prefix;
+      }
+      return "";
+    }
+    const base = detectBasePath();
     const path = window.location.pathname + window.location.search + window.location.hash;
-
-    window.location.replace(`/index.html?path=${encodeURIComponent(path)}`);
+    const appPath = base ? path.slice(base.length) || "/" : path;
+    window.location.replace(`${base}/index.html?path=${encodeURIComponent(appPath)}`);
   </script>
 </head>
 <body>
