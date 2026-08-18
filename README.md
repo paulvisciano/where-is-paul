@@ -9,6 +9,8 @@
 
 A Sci-Fi app: a 3D globe and timeline built for the web and mobile first — a spatial life map ready to extend into XR.
 
+Where is Paul? is the experience layer of a memory-mapping lineage. The moments, people, and places captured here feed into [Neuro Graph](https://github.com/paulvisciano/neuro-graph) — the first attempt to map memory as a connected network — and into [Knowledge Graph](https://github.com/paulvisciano/knowledge-graph), which evolved that concept into a fully local, AI-driven memory palace. The same lived experience, expressed three ways: as a globe you travel, as a graph you orbit, and as a private intelligence that understands it.
+
 **Live project:** [paulvisciano.github.io](https://paulvisciano.github.io/)  
 **About Paul & other work:** [paulvisciano.vercel.app](https://paulvisciano.vercel.app/)
 
@@ -47,6 +49,8 @@ It is meant to stand as an invitation — a visible trail left to inspire the fu
 Not advice.  
 Not pressure.  
 Just proof that such a life is possible.
+
+The moments published here are not just stories — they are nodes in a larger memory architecture. Each moment carries a `sourceDocument` link that traces back into [Neuro Graph](https://github.com/paulvisciano/neuro-graph), where people, places, emotions, and time are connected as synapses. The same data, processed locally by [Knowledge Graph](https://github.com/paulvisciano/knowledge-graph), becomes a living knowledge graph that a local AI can query, extend, and reason about. One life, three surfaces — all sovereign.
 
 ---
 
