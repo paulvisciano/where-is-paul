@@ -74,3 +74,5 @@ user-*/
 
 # Opencode runtime artifacts
 .sisyphus/
+.vercel
+.env*
