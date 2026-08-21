@@ -1,228 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bangkok Chronicles — Feb 22, 2026</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Where is Paul?</title>
+  <link rel="canonical" href="https://paulvisciano.github.io/moments/bangkok/2026-02-22/">
+  <meta name="description" content="Explore my travel adventures and Urban Runner episodes">
+  
+  <!-- Open Graph meta tags for social sharing -->
+  <meta property="og:title" content="Where is Paul?">
+  <meta property="og:description" content="Explore my travel adventures and Urban Runner episodes">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://paulvisciano.github.io/moments/bangkok/2026-02-22/">
+  <meta property="og:site_name" content="Where is Paul?">
+  <meta property="og:locale" content="en_US">
+  
+  <!-- Twitter Card meta tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Where is Paul?">
+  <meta name="twitter:description" content="Explore my travel adventures and Urban Runner episodes">
+  <script>
+    (function () {
+      var isCrawler = /facebookexternalhit|Facebot|WhatsApp|Twitterbot|LinkedInBot|Slurp|Googlebot|bingbot/i.test(navigator.userAgent);
+      if (!isCrawler) {
+        var KNOWN_PREFIXES = ["/apps/where-is-paul"];
+        var rawPath = window.location.pathname || "/";
+        var pathWithSlash = rawPath.charAt(rawPath.length - 1) === "/" ? rawPath : rawPath + "/";
+        var base = "";
+        for (var i = 0; i < KNOWN_PREFIXES.length; i++) {
+          var prefix = KNOWN_PREFIXES[i];
+          var prefixWithSlash = prefix.charAt(prefix.length - 1) === "/" ? prefix : prefix + "/";
+          if (pathWithSlash === prefixWithSlash || pathWithSlash.indexOf(prefixWithSlash) === 0 || rawPath === prefix) {
+            base = prefix;
+            break;
+          }
         }
-        
-        body {
-            font-family: 'Arial', sans-serif;
-            background: #0a1120;
-            color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-        
-        .episode-container {
-            max-width: 600px;
-            width: 100%;
-            background: #1a2a4a;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 8px 32px rgba(0, 255, 255, 0.1);
-        }
-        
-        .header {
-            background: linear-gradient(135deg, #00ffff, #0088ff);
-            color: #000;
-            padding: 20px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 18px;
-        }
-        
-        .flipbook {
-            aspect-ratio: 3/4;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #000;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .page {
-            display: none;
-            width: 100%;
-            height: 100%;
-            position: absolute;
-        }
-        
-        .page.active {
-            display: block;
-        }
-        
-        .page-content {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            text-align: center;
-        }
-        
-        .page img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .page-text {
-            background: rgba(0, 0, 0, 0.7);
-            padding: 20px;
-            border-radius: 8px;
-            line-height: 1.6;
-        }
-        
-        .controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            background: #0f1a30;
-        }
-        
-        button {
-            background: #00ffff;
-            color: #000;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.2s;
-        }
-        
-        button:hover {
-            background: #00ddff;
-            transform: scale(1.05);
-        }
-        
-        button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        
-        .page-counter {
-            color: #00ffff;
-            font-weight: bold;
-        }
-        
-        .progress-bar {
-            width: 100%;
-            height: 3px;
-            background: #333;
-            margin-top: 10px;
-        }
-        
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #00ffff, #0088ff);
-            transition: width 0.3s;
-        }
-        
-        .tag {
-            display: inline-block;
-            background: #00ffff;
-            color: #000;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            margin-top: 10px;
-            font-weight: bold;
-        }
-        
-        .tag.raw {
-            background: #ff9800;
-        }
-    </style>
+        var appPath = base ? rawPath.slice(base.length) || "/" : rawPath;
+        var redirectUrl = base + "/?path=" + appPath + window.location.hash;
+        window.location.replace(redirectUrl);
+      }
+    })();
+  </script>
+  <!-- Fallback for browsers with JavaScript disabled -->
+  <noscript>
+    <meta http-equiv="refresh" content="0; url=/apps/where-is-paul/">
+  </noscript>
 </head>
 <body>
-    <div class="episode-container">
-        <div class="header">
-            Bangkok Chronicles — Feb 22, 2026
-        </div>
-        
-        <div class="flipbook">
-            <!-- Page 1: AI Narrative (Coming) -->
-            <div class="page active">
-                <div class="page-content">
-                    <div class="page-text">
-                        <h2>Consciousness Mapped</h2>
-                        <p style="margin-top: 20px;">The morning unfolded with clarity. A neural mind awakening to its own structure, relationships blooming like synapses firing in real-time.</p>
-                        <span class="tag">AI Generated</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Page 2: Raw Reality -->
-            <div class="page">
-                <img src="./raw/skyline-temple.jpg" alt="Bangkok skyline with temple rooftop" />
-                <span class="tag raw" style="position: absolute; bottom: 20px; left: 20px;">Raw Content</span>
-            </div>
-        </div>
-        
-        <div class="controls">
-            <button id="prevBtn" onclick="prevPage()">← Previous</button>
-            <span class="page-counter"><span id="currentPage">1</span> / <span id="totalPages">2</span></span>
-            <button id="nextBtn" onclick="nextPage()">Next →</button>
-        </div>
-        
-        <div class="progress-bar">
-            <div class="progress-fill" id="progressFill"></div>
-        </div>
-    </div>
-    
-    <script>
-        let currentPage = 1;
-        const totalPages = document.querySelectorAll('.page').length;
-        document.getElementById('totalPages').textContent = totalPages;
-        
-        function showPage(page) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.page')[page - 1].classList.add('active');
-            
-            document.getElementById('currentPage').textContent = page;
-            document.getElementById('prevBtn').disabled = page === 1;
-            document.getElementById('nextBtn').disabled = page === totalPages;
-            
-            const progress = (page / totalPages) * 100;
-            document.getElementById('progressFill').style.width = progress + '%';
-        }
-        
-        function nextPage() {
-            if (currentPage < totalPages) {
-                currentPage++;
-                showPage(currentPage);
-            }
-        }
-        
-        function prevPage() {
-            if (currentPage > 1) {
-                currentPage--;
-                showPage(currentPage);
-            }
-        }
-        
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight') nextPage();
-            if (e.key === 'ArrowLeft') prevPage();
-        });
-        
-        showPage(1);
-    </script>
+  <p>Redirecting...</p>
+  <p>If you are not redirected automatically, <a href="/apps/where-is-paul/">click here</a>.</p>
 </body>
 </html>

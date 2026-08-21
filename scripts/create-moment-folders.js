@@ -64,27 +64,35 @@ function createIndexHtml() {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Redirecting...</title>
   <script>
-    // Extract the current path dynamically from the URL
-    const currentPath = window.location.pathname;
-    
-    // Set canonical link for SEO
-    const canonicalLink = document.createElement('link');
-    canonicalLink.rel = 'canonical';
-    canonicalLink.href = currentPath;
-    document.head.appendChild(canonicalLink);
-    
-    // Immediate redirect to the main app with the moment URL (preserve hash)
-    const redirectUrl = \`/?path=\${currentPath}\${window.location.hash}\`;
-    window.location.replace(redirectUrl);
+    (function () {
+      var isCrawler = /facebookexternalhit|Facebot|WhatsApp|Twitterbot|LinkedInBot|Slurp|Googlebot|bingbot/i.test(navigator.userAgent);
+      if (!isCrawler) {
+        var KNOWN_PREFIXES = ["/apps/where-is-paul"];
+        var rawPath = window.location.pathname || "/";
+        var pathWithSlash = rawPath.charAt(rawPath.length - 1) === "/" ? rawPath : rawPath + "/";
+        var base = "";
+        for (var i = 0; i < KNOWN_PREFIXES.length; i++) {
+          var prefix = KNOWN_PREFIXES[i];
+          var prefixWithSlash = prefix.charAt(prefix.length - 1) === "/" ? prefix : prefix + "/";
+          if (pathWithSlash === prefixWithSlash || pathWithSlash.indexOf(prefixWithSlash) === 0 || rawPath === prefix) {
+            base = prefix;
+            break;
+          }
+        }
+        var appPath = base ? rawPath.slice(base.length) || "/" : rawPath;
+        var redirectUrl = base + "/?path=" + appPath + window.location.hash;
+        window.location.replace(redirectUrl);
+      }
+    })();
   </script>
   <!-- Fallback for browsers with JavaScript disabled -->
   <noscript>
-    <meta http-equiv="refresh" content="0; url=/">
+    <meta http-equiv="refresh" content="0; url=/apps/where-is-paul/">
   </noscript>
 </head>
 <body>
   <p>Redirecting...</p>
-  <p>If you are not redirected automatically, <a href="/">click here</a>.</p>
+  <p>If you are not redirected automatically, <a href="/apps/where-is-paul/">click here</a>.</p>
 </body>
 </html>`;
   }

@@ -10,6 +10,20 @@
       const currentPath = window.location.pathname;
       const baseUrl = 'https://paulvisciano.github.io';
       const fullUrl = baseUrl + currentPath;
+
+      // Detect subpath base (e.g. /apps/where-is-paul)
+      var base = "";
+      var KNOWN_PREFIXES = ["/apps/where-is-paul"];
+      var rawPath = window.location.pathname || "/";
+      var pathWithSlash = rawPath.charAt(rawPath.length - 1) === "/" ? rawPath : rawPath + "/";
+      for (var i = 0; i < KNOWN_PREFIXES.length; i++) {
+        var prefix = KNOWN_PREFIXES[i];
+        var prefixWithSlash = prefix.charAt(prefix.length - 1) === "/" ? prefix : prefix + "/";
+        if (pathWithSlash === prefixWithSlash || pathWithSlash.indexOf(prefixWithSlash) === 0 || rawPath === prefix) {
+          base = prefix;
+          break;
+        }
+      }
       
       // Set canonical link for SEO
       const canonicalLink = document.createElement('link');
@@ -119,7 +133,7 @@
         // Try to load moments.js synchronously for crawlers
         // This is a fallback - ideally moments.js should be loaded before this script runs
         const script = document.createElement('script');
-        script.src = '/moments/moments.js';
+        script.src = (base || '') + '/moments/moments.js';
         script.async = false;
         script.onload = function() {
           const episode = findEpisodeData(currentPath);
@@ -131,18 +145,18 @@
       // Small delay to allow meta tags to be added before redirect
       // This helps crawlers see the meta tags
       setTimeout(function() {
-        const redirectUrl = `/?path=${currentPath}${window.location.hash}`;
+        const redirectUrl = (base || '') + '/?path=' + currentPath + window.location.hash;
         window.location.replace(redirectUrl);
       }, 100);
     })();
   </script>
   <!-- Fallback for browsers with JavaScript disabled -->
   <noscript>
-    <meta http-equiv="refresh" content="0; url=/">
+    <meta http-equiv="refresh" content="0; url=/apps/where-is-paul/">
   </noscript>
 </head>
 <body>
   <p>Redirecting...</p>
-  <p>If you are not redirected automatically, <a href="/">click here</a>.</p>
+  <p>If you are not redirected automatically, <a href="/apps/where-is-paul/">click here</a>.</p>
 </body>
 </html>

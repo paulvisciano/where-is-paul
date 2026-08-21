@@ -25,14 +25,35 @@
   <meta name="twitter:description" content="A meta gaming masterpiece in Bangkok&#039;s Sukhumvit district - 6.5 hours working on Urban Runner while living Urban Runner at Marouch Hookah Lounge, successful QR code test at Thai Cannabis Club, and dramatic confrontation with Episode 4 scammers.">
   <meta name="twitter:image" content="https://paulvisciano.github.io/moments/bangkok/2025-09-01/cover.png">
   <meta name="twitter:image:alt" content="Urban Runner Episode 5: Bangkok Hustle II">
-  <script src="../../../lib/crawler-redirect.js"></script>
+  <script>
+    (function () {
+      var isCrawler = /facebookexternalhit|Facebot|WhatsApp|Twitterbot|LinkedInBot|Slurp|Googlebot|bingbot/i.test(navigator.userAgent);
+      if (!isCrawler) {
+        var KNOWN_PREFIXES = ["/apps/where-is-paul"];
+        var rawPath = window.location.pathname || "/";
+        var pathWithSlash = rawPath.charAt(rawPath.length - 1) === "/" ? rawPath : rawPath + "/";
+        var base = "";
+        for (var i = 0; i < KNOWN_PREFIXES.length; i++) {
+          var prefix = KNOWN_PREFIXES[i];
+          var prefixWithSlash = prefix.charAt(prefix.length - 1) === "/" ? prefix : prefix + "/";
+          if (pathWithSlash === prefixWithSlash || pathWithSlash.indexOf(prefixWithSlash) === 0 || rawPath === prefix) {
+            base = prefix;
+            break;
+          }
+        }
+        var appPath = base ? rawPath.slice(base.length) || "/" : rawPath;
+        var redirectUrl = base + "/?path=" + appPath + window.location.hash;
+        window.location.replace(redirectUrl);
+      }
+    })();
+  </script>
   <!-- Fallback for browsers with JavaScript disabled -->
   <noscript>
-    <meta http-equiv="refresh" content="0; url=../../../">
+    <meta http-equiv="refresh" content="0; url=/apps/where-is-paul/">
   </noscript>
 </head>
 <body>
   <p>Redirecting...</p>
-  <p>If you are not redirected automatically, <a href="../../../">click here</a>.</p>
+  <p>If you are not redirected automatically, <a href="/apps/where-is-paul/">click here</a>.</p>
 </body>
 </html>

@@ -25,14 +25,35 @@
   <meta name="twitter:description" content="Started at 119th High School at age 6, where I spent grades 1-6. Later transferred to Doris Tenedi German High School for grades 7-10, balancing my studies with an adventurous social life. By 13, I was already exploring Sofia&#039;s nightlife, hanging out downtown with friends, and playing intense street soccer on concrete courts - the scars on my knees still tell those stories. Those early teenage years in Sofia shaped my adventurous spirit.">
   <meta name="twitter:image" content="https://paulvisciano.github.io/moments/sofia/1994-11-24/image.jpg">
   <meta name="twitter:image:alt" content="Young Paul in Sofia">
-  <script src="../../../lib/crawler-redirect.js"></script>
+  <script>
+    (function () {
+      var isCrawler = /facebookexternalhit|Facebot|WhatsApp|Twitterbot|LinkedInBot|Slurp|Googlebot|bingbot/i.test(navigator.userAgent);
+      if (!isCrawler) {
+        var KNOWN_PREFIXES = ["/apps/where-is-paul"];
+        var rawPath = window.location.pathname || "/";
+        var pathWithSlash = rawPath.charAt(rawPath.length - 1) === "/" ? rawPath : rawPath + "/";
+        var base = "";
+        for (var i = 0; i < KNOWN_PREFIXES.length; i++) {
+          var prefix = KNOWN_PREFIXES[i];
+          var prefixWithSlash = prefix.charAt(prefix.length - 1) === "/" ? prefix : prefix + "/";
+          if (pathWithSlash === prefixWithSlash || pathWithSlash.indexOf(prefixWithSlash) === 0 || rawPath === prefix) {
+            base = prefix;
+            break;
+          }
+        }
+        var appPath = base ? rawPath.slice(base.length) || "/" : rawPath;
+        var redirectUrl = base + "/?path=" + appPath + window.location.hash;
+        window.location.replace(redirectUrl);
+      }
+    })();
+  </script>
   <!-- Fallback for browsers with JavaScript disabled -->
   <noscript>
-    <meta http-equiv="refresh" content="0; url=../../../">
+    <meta http-equiv="refresh" content="0; url=/apps/where-is-paul/">
   </noscript>
 </head>
 <body>
   <p>Redirecting...</p>
-  <p>If you are not redirected automatically, <a href="../../../">click here</a>.</p>
+  <p>If you are not redirected automatically, <a href="/apps/where-is-paul/">click here</a>.</p>
 </body>
 </html>

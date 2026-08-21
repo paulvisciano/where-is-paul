@@ -25,14 +25,35 @@
   <meta name="twitter:description" content="Touchdown in Davao after an early flight from Singapore. Slept hard, reset the system, then went straight into feast mode at Vikings for the first proper meal in a while. Espresso, massage, reflections on city livability, and a late-night run with Boy, Moses, and crew — capped with Burger King and a quiet ride home.">
   <meta name="twitter:image" content="https://paulvisciano.github.io/moments/davao/2025-11-21/cover.png">
   <meta name="twitter:image:alt" content="Davao Day 1 — Arrival, Vikings Feast &amp; Night Out">
-  <script src="../../../lib/crawler-redirect.js"></script>
+  <script>
+    (function () {
+      var isCrawler = /facebookexternalhit|Facebot|WhatsApp|Twitterbot|LinkedInBot|Slurp|Googlebot|bingbot/i.test(navigator.userAgent);
+      if (!isCrawler) {
+        var KNOWN_PREFIXES = ["/apps/where-is-paul"];
+        var rawPath = window.location.pathname || "/";
+        var pathWithSlash = rawPath.charAt(rawPath.length - 1) === "/" ? rawPath : rawPath + "/";
+        var base = "";
+        for (var i = 0; i < KNOWN_PREFIXES.length; i++) {
+          var prefix = KNOWN_PREFIXES[i];
+          var prefixWithSlash = prefix.charAt(prefix.length - 1) === "/" ? prefix : prefix + "/";
+          if (pathWithSlash === prefixWithSlash || pathWithSlash.indexOf(prefixWithSlash) === 0 || rawPath === prefix) {
+            base = prefix;
+            break;
+          }
+        }
+        var appPath = base ? rawPath.slice(base.length) || "/" : rawPath;
+        var redirectUrl = base + "/?path=" + appPath + window.location.hash;
+        window.location.replace(redirectUrl);
+      }
+    })();
+  </script>
   <!-- Fallback for browsers with JavaScript disabled -->
   <noscript>
-    <meta http-equiv="refresh" content="0; url=../../../">
+    <meta http-equiv="refresh" content="0; url=/apps/where-is-paul/">
   </noscript>
 </head>
 <body>
   <p>Redirecting...</p>
-  <p>If you are not redirected automatically, <a href="../../../">click here</a>.</p>
+  <p>If you are not redirected automatically, <a href="/apps/where-is-paul/">click here</a>.</p>
 </body>
 </html>
