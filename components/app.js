@@ -450,7 +450,12 @@ window.App = () => {
           handleMomentSelection(currentMoment);
         }
       } else {
-        updateOverlayMessage('Looking for Paul'); // Default message
+        const latestMoment = window.momentsInTime[window.momentsInTime.length - 1];
+        if (latestMoment) {
+          handleMomentSelection(latestMoment);
+        } else {
+          updateOverlayMessage('Looking for Paul');
+        }
       }
     }
   }, [zoomCallback]);
