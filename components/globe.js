@@ -1319,6 +1319,13 @@ window.GlobeComponent = ({ handleTimelineClick, selectedId, setSelectedId, selec
             });
           }, 100);
         } else {
+          // Keep relative URLs rooted at the fetched post after its body moves into the app.
+          doc.body.querySelectorAll('[src], a[href]').forEach((element) => {
+            const attribute = element.hasAttribute('src') ? 'src' : 'href';
+            const value = element.getAttribute(attribute).trim();
+            if (!value || /^(?:[\/#]|[a-z][a-z\d+.-]*:)/i.test(value)) return;
+            element.setAttribute(attribute, new URL(value, response.url).href);
+          });
           bodyContent = doc.body.innerHTML;
         }
 
