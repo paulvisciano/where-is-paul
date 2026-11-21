@@ -843,15 +843,16 @@ window.Footer = ({ handleTimelineClick, selectedId, setSelectedId, selectedTag, 
                       isPost && !moment.image && React.createElement('span', { className: 'tl-entry__post-badge' }, 'Read'),
                       imgSrc
                         ? React.createElement('img', {
-                            src: imgSrc,
+                            src: window.imageUrl(imgSrc),
+                            decoding: 'async',
                             alt: moment.imageAlt || moment.title,
                             width: 185,
                             height: 310,
                             decoding: 'async',
                             loading: 'lazy',
                             onError: function(e) {
-                              if (coverThumb && e.target.src === coverThumb && coverFull) {
-                                e.target.src = coverFull;
+                              if (coverThumb && e.target.getAttribute('src') === window.imageUrl(coverThumb) && coverFull) {
+                                e.target.src = window.imageUrl(coverFull);
                               } else {
                                 var media = e.target.parentElement;
                                 if (media) media.classList.add('tl-entry__media-fallback');

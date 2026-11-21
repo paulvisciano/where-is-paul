@@ -149,6 +149,8 @@ Edit `characters/characters.js`. Each person:
 
 Put images and video in the moment folder, or use any `https://` URL.
 
+Vercel runs `npm run build` to produce the static site in `dist/`. The build makes smaller WebP copies of local PNG and JPEG artwork and images in the project’s public R2 bucket when it can fetch them. The app uses the original URLs for images with no smaller copy. To preview the production image delivery locally, serve `dist/` after running the build.
+
 ### Publish
 
 It’s static. Vercel, GitHub Pages, Netlify, or any static host. `vercel.json` is already in the repo.

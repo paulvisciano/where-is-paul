@@ -12,7 +12,8 @@ window.MomentRevealOverlay = ({ title, snippet, fullLink, onClose, id, image, im
     'div',
     { className: 'popover-image-container' + (showStrip ? ' popover-image-container--gallery' : '') },
     React.createElement('img', {
-      src: current.src,
+      src: window.imageUrl(current.src),
+      decoding: 'async',
       alt: current.alt || imageAlt || title,
       className: 'popover-image-enhanced',
       onError: function (e) {
@@ -39,7 +40,9 @@ window.MomentRevealOverlay = ({ title, snippet, fullLink, onClose, id, image, im
             'aria-label': photo.alt || ('Photo ' + (i + 1))
           },
           React.createElement('img', {
-            src: photo.src,
+            src: window.imageUrl(photo.src),
+            loading: 'lazy',
+            decoding: 'async',
             alt: '',
             onError: function (err) {
               var btn = err.target.closest('.popover-filmstrip-btn');
@@ -199,7 +202,8 @@ window.createGlobePhotoPin = (d) => {
   const inner = document.createElement('span');
   inner.className = 'globe-photo-pin-inner';
   const img = document.createElement('img');
-  img.src = d.image;
+  img.decoding = 'async';
+  img.src = window.imageUrl(d.image);
   img.alt = '';
   img.draggable = false;
   inner.appendChild(img);
@@ -260,7 +264,7 @@ window.GlobePinGallery = ({ moments, x, y, locationName, onSelect, onEnter, onLe
               onSelect(m);
             }
           },
-          React.createElement('img', { src: m.image, alt: m.title || '', draggable: false })
+          React.createElement('img', { src: window.imageUrl(m.image), decoding: 'async', alt: m.title || '', draggable: false })
         );
       })
     )
@@ -330,7 +334,7 @@ window.HexClusterSheet = ({ moments, onClose, onSelect, sheetRef }) => {
               onClick: function() { onSelect(m); }
             },
             m.image
-              ? React.createElement('img', { src: m.image, alt: '', className: 'hex-cluster-thumb' })
+              ? React.createElement('img', { src: window.imageUrl(m.image), decoding: 'async', alt: '', className: 'hex-cluster-thumb' })
               : React.createElement('div', { className: 'hex-cluster-thumb hex-cluster-thumb--empty' }),
             React.createElement(
               'div',
@@ -1326,6 +1330,11 @@ window.GlobeComponent = ({ handleTimelineClick, selectedId, setSelectedId, selec
             if (!value || /^(?:[\/#]|[a-z][a-z\d+.-]*:)/i.test(value)) return;
             element.setAttribute(attribute, new URL(value, response.url).href);
           });
+          doc.body.querySelectorAll('img').forEach((image, index) => {
+            if (index >= 2 && !image.hasAttribute('loading')) image.loading = 'lazy';
+            if (!image.hasAttribute('decoding')) image.decoding = 'async';
+            if (image.hasAttribute('src')) image.setAttribute('src', window.imageUrl(image.getAttribute('src')));
+          });
           bodyContent = doc.body.innerHTML;
         }
 
@@ -1438,8 +1447,7 @@ window.GlobeComponent = ({ handleTimelineClick, selectedId, setSelectedId, selec
       src = m.cover || ((m.fullLink && m.fullLink !== '#') ? m.fullLink.replace(/\/$/, '') + '/cover.webp' : '');
     } else {
       src = (m.image || '')
-        .replace(/image-thumb\.webp$/, 'image.jpg')
-        .replace(/\/moments\/images\/([^/]+)\.webp$/, '/moments/images/$1.jpg');
+        .replace(/image-thumb\.webp$/, 'image.jpg');
     }
     if (!src) return null;
     if (src.indexOf('attachment://') === 0) src = src.replace('attachment://', '');
@@ -1926,7 +1934,7 @@ window.GlobeComponent = ({ handleTimelineClick, selectedId, setSelectedId, selec
                         onClick: () => openSearchResult(item)
                       },
                       item.thumb
-                        ? React.createElement('img', { className: 'search-palette__thumb', src: item.thumb, alt: '' })
+                        ? React.createElement('img', { className: 'search-palette__thumb', src: window.imageUrl(item.thumb), loading: 'lazy', decoding: 'async', alt: '' })
                         : React.createElement('span', { className: 'search-palette__kind' }, item.kind),
                       React.createElement(
                         'span',
@@ -2042,7 +2050,8 @@ window.GlobeComponent = ({ handleTimelineClick, selectedId, setSelectedId, selec
                     },
                     React.createElement('span', { className: 'character-avatar-img-wrapper' },
                       React.createElement('img', {
-                        src: character.avatar,
+                        src: window.imageUrl(character.avatar),
+                        decoding: 'async',
                         alt: character.name,
                         className: 'character-avatar-img',
                         onError: (e) => {

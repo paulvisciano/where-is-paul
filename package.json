@@ -5,6 +5,10 @@
   },
   "scripts": {
     "remember": "node .ai/memories/remember.js",
-    "test:comic": "node .ai/test-cases/test-comic-reader.js"
+    "test:comic": "node .ai/test-cases/test-comic-reader.js",
+    "build": "node scripts/build-site.mjs"
+  },
+  "devDependencies": {
+    "sharp": "0.34.5"
   }
 }

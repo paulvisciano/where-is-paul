@@ -155,7 +155,7 @@ window.PostEraGallery = ({ photos }) => {
           'figure',
           { key: photo.src + i, className: 'era-gallery__frame' },
           React.createElement('img', {
-            src: photo.src,
+            src: window.imageUrl(photo.src),
             alt: photo.alt || '',
             loading: 'lazy',
             decoding: 'async',
@@ -284,7 +284,8 @@ window.BlogPostDrawer = ({ content, onClose }) => {
         'div',
         { key: 'cover', className: 'blog-post-cover' },
         React.createElement('img', {
-          src: content.image,
+          src: window.imageUrl(content.image),
+          decoding: 'async',
           alt: content.imageAlt,
           className: 'blog-post-cover-image',
           style: content.image.includes('03-20-sofia-childhood.jpg') ? { objectFit: 'scale-down', objectPosition: 'center' } : undefined

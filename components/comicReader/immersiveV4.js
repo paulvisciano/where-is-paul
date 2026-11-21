@@ -342,7 +342,7 @@
             React.createElement('video', {
               ref: (el) => { if (el) videoRefsByIndex.current[i] = el; },
               src,
-              poster: poster || undefined,
+              poster: window.imageUrl(poster) || undefined,
               preload: 'auto',
               autoPlay: !noAutoplay && initialSlideIndex === i,
               playsInline: true,
@@ -371,7 +371,9 @@
             })
           )
         : React.createElement('img', {
-            src: src || (typeof page === 'string' ? page : ''),
+            src: window.imageUrl(src || (typeof page === 'string' ? page : '')),
+            loading: i === 0 ? 'eager' : 'lazy',
+            decoding: 'async',
             alt: (page && page.alt) || `Spread ${i + 1}`,
             style: { width: '100%', height: '100%', display: 'block', objectFit: 'fill' }
           });

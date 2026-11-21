@@ -45,7 +45,7 @@ const renderHeaderButtons = (styles, { handleClose, toggleFullscreen, isFullscre
 const resolveImageUrl = (url) => {
   if (!url || typeof url !== 'string') return url;
   if (url.startsWith('attachment://')) url = url.replace('attachment://', '');
-  return window.withBase ? window.withBase(url) : url;
+  return window.imageUrl(url);
 };
 
 /**
@@ -93,6 +93,7 @@ const renderCover = (deviceType, styles, {
     episodeData && coverSrc && React.createElement('img', {
       key: 'cover-img',
       src: coverSrc,
+      decoding: 'async',
       alt: `${episodeData.title} Cover`,
       style: styles.coverImageWithOpacityStyle ? styles.coverImageWithOpacityStyle(isVisible) : (styles.coverImageStyle || {})
     })

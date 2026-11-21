@@ -1,5 +1,8 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "installCommand": "PUPPETEER_SKIP_DOWNLOAD=true npm ci",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
   "cleanUrls": false,
   "trailingSlash": false,
   "redirects": [

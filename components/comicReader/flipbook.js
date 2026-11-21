@@ -43,10 +43,10 @@ const createMediaElement = (url, alt, style, isVideoFile) => {
     return video;
   } else {
     const img = document.createElement('img');
-    img.src = url;
     img.alt = alt;
     img.loading = 'lazy';
     img.decoding = 'async';
+    img.src = window.imageUrl(url);
     img.style.cssText = styleObjectToCss(style);
     img.onerror = () => {};
     return img;

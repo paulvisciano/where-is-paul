@@ -243,7 +243,7 @@ const preloadNextTwoPages = (pages, fromIndex, isVideoFile) => {
     if (!url || typeof url !== 'string') return;
     if (isVideoFile && isVideoFile(url)) return;
     const img = new Image();
-    img.src = window.withBase ? window.withBase(url) : url;
+    img.src = window.imageUrl(url);
   });
 };
 
